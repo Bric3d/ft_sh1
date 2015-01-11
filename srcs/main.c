@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/04 15:01:50 by bbecker           #+#    #+#             */
-/*   Updated: 2015/01/06 20:25:22 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/01/11 20:17:43 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <unistd.h>
 #include <dirent.h>
 #include <errno.h>
+#include <sys/stat.h>
 
 char	*ft_getenv(char **ev, char *elem, int param)
 {
@@ -65,8 +66,10 @@ char	*pathjoin(char **ev, char *target, char *elem, int param)
 
 void	ft_switch(char **tab, char *str)
 {
+	ft_putendl("6");
 	if (tab[1])
 		free(tab[1]);
+	ft_putendl("6");
 	tab[1] = str;
 }
 
@@ -126,72 +129,31 @@ char	*ft_readdir(DIR *dir, char *bin, char *path, int param)
 	return (ret);
 }
 
-
-void	ft_clear(void)
+char	*localbin(char *str)
 {
-	ft_putstr("\e[1;1H\e[2J");
-}
-/*
-void	ft_rewrite_path(char **av, char **ev)
-{
-	int		i;
-	int		j;
-	char	*buf;
-
-	i = 0;
-	buf = NULL;
-	while (ev[i] && buf == NULL)
-		buf = ft_strnstr(ev[i], "OLDPWD=", ft_strlen("OLDPWD="));
-	if (buf)
-		free(buf), i = j;
-	i = 0;
-	buf = NULL;
-	while (ev[i] && buf == NULL)
-		buf = ft_strnstr(ev[i], "PWD=", ft_strlen("PWD="));
-	if (buf)
-		ev[j] = buf;
-	if (ft_strcmp(av[1], "..") == 0 && ft_strcmp(ev[i], "/") != 0)
-	{
-	}
-}
-*/
-void	cderror(char **av, int error)
-{
-	ft_putstr("\033[31m");
-	if (error == 0)
-		ft_putstr("cd: no such file or directory: ");
-	if (error == 0)
-		ft_putendl(av[1]);
-	ft_putstr("\033[0m");
-}
-
-void	ft_cd(char **av, char **ev)
-{
+	char	*ret;
 	DIR		*dir;
-	char	*buf;
 
-	buf = NULL;
-	dir = ft_dir(ft_getenv(ev, "PWD=", 1), 2);
-	if (!(ft_readdir(dir, av[0], NULL, 1)) && !(ft_dir(dir, 3)))
-		cderror(av, 0);
-	else
-	{
-		//ft_rewrite_path(av, ev);
-		errno = 0;
-		if (av[1][0] != '.')
-		{
-			buf = ft_strjoin("./", av[1]);
-			chdir(buf);
-			free(buf);
-		}
-		else
-			chdir(av[1]);
-	}
-	if (errno != 0)
-		cderror(av, 1);
+	ret = NULL;
+	dir = NULL;
+	dir = ft_dir("./", 0);
+	ret = ft_readdir(dir, &str[2], "./", 0);
+	dir = ft_dir(dir, 1);
+	return (ret);
 }
 
-char	*searchbin(char *paths, char **tab)
+void	ft_nobin(char *bin, char *ret, int n)
+{
+	if (!ret && n == 0)
+	{
+		ft_putstr("\033[31m");
+		ft_putstr("sh1: command not found: ");
+		ft_putendl(bin);
+		ft_putstr("\033[0m");
+	}
+}
+
+char	*searchbin(char *paths, char **tab, int n)
 {
 	int		i;
 	char	*tmp;
@@ -201,11 +163,7 @@ char	*searchbin(char *paths, char **tab)
 	ret = NULL;
 	i = 0;
 	if (tab[0][0] && tab[0][1] && tab[0][0] == '.' && tab[0][1] == '/')
-	{
-		dir = ft_dir("./", 0);
-		ret = ft_readdir(dir, tab[0], "./", 0);
-		dir = ft_dir(dir, 1);
-	}
+		ret = localbin(tab[0]);
 	else
 	{
 		while (paths[i] && paths[i] != ':')
@@ -217,8 +175,9 @@ char	*searchbin(char *paths, char **tab)
 			free (tmp);
 		ft_dir(dir, 1);
 		if (ret == NULL && paths[i + 1])
-			ret = searchbin(&paths[i + 1], tab);
+			ret = searchbin(&paths[i + 1], tab, n++);
 	}
+	ft_nobin(tab[0], ret, n);
 	return (ret);
 }
 
@@ -258,11 +217,159 @@ int		ft_putprompt(char **ev)
 	return (0);
 }
 
-int		checkndobltn(char **ev, char **av)
+void	ft_clear(void)
 {
-	if (ft_strcmp(av[1], "cd") == 0)
-		ft_cd(av, ev);
-	return (0);
+	ft_putstr("\e[1;1H\e[2J");
+}
+
+void	ft_rewrite_path(char **ev, char *pwd)
+{
+	int		i;
+	int		j;
+	char	*buf;
+
+	i = 0;
+	buf = NULL;
+	while (ev[i] && buf == NULL)
+		buf = ft_strnstr(ev[i++], "OLDPWD=", ft_strlen("OLDPWD="));
+	if (buf)
+		free(buf);
+	j = 0;
+	buf = NULL;
+	while (ev[j] && buf == NULL)
+		buf = ft_strnstr(ev[j++], "PWD=", ft_strlen("PWD="));
+	if (buf)
+	{
+		ev[i] = ft_strjoin("OLDPWD=", &buf[ft_strlen("PWD=")]);
+		free(buf);
+		ev[j] = pwd;
+	}
+}
+
+void	cderror(char **av, int error)
+{
+	ft_putstr_fd("\033[31m", 2);
+	if (error == 0)
+		ft_putstr_fd("cd: No such file or directory: ", 2);
+	if (error == 1)
+		ft_putendl_fd("cd: Too many arguments", 2);
+	if (error == 2)
+		ft_putstr_fd("cd: Not a directory: ", 2);
+	if (error == 3)
+		ft_putstr_fd("cd: Permission denied: ", 2);
+	if (error == 0 || error == 2 || error == 3)
+		ft_putendl_fd(av[0], 2);
+	ft_putstr_fd("\033[0m", 2);
+}
+
+int		ft_chdir(char *path)
+{
+	struct stat 	buf;
+	int 			ret;
+
+	ret = -1;
+	if (lstat(path, &buf) == -1)
+		cderror(&path, 0);
+	else if (!S_ISDIR(buf.st_mode) && !S_ISLNK(buf.st_mode))
+		cderror(&path, 2);
+	else if (!(buf.st_mode & S_IXUSR) && !(buf.st_mode & S_IXGRP) && !(buf.st_mode & S_IXOTH))
+		cderror(&path, 3);
+	else
+		if ((ret = chdir(path)) == -1)
+			cderror(&path, 2);
+	return (ret);
+}
+
+void	cd2args(char **av, char **ev)
+{
+	(void)av;
+	(void)ev;
+}
+
+void	cd1arg(char *path, char **ev)
+{
+	static char current[1024];
+	static char prev[1024];
+	char 		*pwd;
+	int 		ret;
+
+	ret = -1;
+	if (!ft_strcmp(path, "-")&& *prev)
+	{
+		ft_bzero(current, 1024), getcwd(current, 1024);
+		ret = ft_chdir(prev);
+		ft_memcpy(prev, current, 1024);
+	}
+	else
+	{
+		ft_bzero(prev, 1024), getcwd(prev, 1024);
+		ft_chdir(path);
+	}
+	ft_bzero(current, 1024), getcwd(current, 1024);
+	if (ret == 0)
+	{
+		pwd = ft_strjoin("PWD=", current);
+		ft_rewrite_path(ev, pwd);
+	}
+}
+
+void	ft_cd(char **av, char **ev)
+{
+	char 	*home;
+	size_t 	len;
+
+	len = ft_tablen(av) - 1;
+	if (len > 2)
+		cderror(av, 1);
+	if (len > 2)
+		return ;
+	else if (len == 2)
+		cd2args(av, ev);
+	else if (len == 1)
+		cd1arg(av[1], ev);
+	else
+	{
+		if ((home = ft_getenv(ev, "HOME=", 0)))
+			cd1arg(home, ev);
+	}
+}
+
+
+void	ft_env(char ***ev, char **av)
+{
+	int i;
+
+	i = 0;
+	if (av[1])
+	{
+	}
+	while (ev[0][i])
+		ft_putendl(ev[0][i++]);
+}
+
+void	ft_exit(char **av, char **ev, int ret)
+{
+	ft_strdel(av);
+	ft_strdel(ev);
+	ft_putendl("\033[31m*** sh1 closed ***\033[0m");
+	exit(ret);
+}
+
+int		checkndobltn(char ***ev, char **av)
+{
+	int ret;
+
+	ret = 0;
+	if (av[0])
+	{
+		if (ft_strcmp(av[0], "cd") == 0)
+			ft_cd(av, *ev), ret = 1;
+		if (ft_strcmp(av[0], "env") == 0)
+			ft_env(ev, av), ret = 1;
+		if (ft_strcmp(av[0], "exit") == 0)
+			ft_exit(av, *ev, 0), ret = 1;
+	}
+	return (ret);
 }
 
 int		exebin(char *path, char **av, char **ev)
@@ -273,13 +380,16 @@ int		exebin(char *path, char **av, char **ev)
 	father = fork();
 	ret = 0;
 	if (father == 0)
+	{
 		ret = execve(path, av, ev);
+		ft_exit(av, ev, ret);
+	}
 	else
 		wait(NULL);
 	return (ret);
 }
 
-int		docmd(char **ev)
+int		docmd(char ***ev)
 {
 	char	*buf;
 	char	**buf2;
@@ -290,12 +400,12 @@ int		docmd(char **ev)
 	get_next_line(0, &buf);
 	buf2 = ft_strsplit(buf, ' ');
 	free(buf);
-	if (checkndobltn(ev, buf2) == 1)
-		return (1);
-	if (buf2[0] && (buf = ft_getenv(ev, "PATH=", 0)))
+	if (buf2 && buf2[0] && checkndobltn(ev, buf2) == 1)
+		ret = 1;
+	else if (buf2 && buf2[0] && (buf = ft_getenv(*ev, "PATH=", 0)))
 	{
-		if ((binpath = searchbin(buf, buf2)))
-			ret = exebin(binpath, buf2, ev);
+		if ((binpath = searchbin(buf, buf2, 0)))
+			ret = exebin(binpath, buf2, *ev);
 		if (binpath)
 			free(binpath);
 	}
@@ -332,7 +442,7 @@ int		main(int ac, char **av, char **ev)
 	while (1)
 	{
 		ft_putprompt(ev);
-		docmd(ev);
+		docmd(&ev);
 	}
 	ft_strdel(ev);
 	return (0);
