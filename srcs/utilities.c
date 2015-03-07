@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   utilities.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/05 14:51:25 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/01 18:26:31 by bbecker          ###   ########.fr       */
+/*   Created: 2015/03/01 14:57:13 by bbecker           #+#    #+#             */
+/*   Updated: 2015/03/02 12:38:53 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_minishell1.h"
 
-# include <stdlib.h>
-# include <sys/uio.h>
-# include <sys/types.h>
-# include <unistd.h>
-# include "libft.h"
-# define BUFF 1000	
-
-typedef struct		s_lst
+void	ft_checknull(void *stuff)
 {
-	char			*buf;
-	int				fd;
-	struct s_lst	*next;
-}					t_lst;
+	if (stuff != NULL)
+		return ;
+	ft_putendl_fd("ft_minishell : Something went wrong with malloc.", 2);
+	exit(-1);
+}
 
-int					get_next_line(int const fd, char **line);
+char	**cloneenv(char **ev)
+{
+	char	**newev;
 
-#endif
+	if (ev != NULL)
+		ft_checknull(newev = ft_tabdup(ev));
+	else
+		newev = NULL;
+	return (newev);
+}

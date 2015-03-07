@@ -6,7 +6,7 @@
 #    By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/08 15:08:34 by bbecker           #+#    #+#              #
-#    Updated: 2015/01/05 18:00:51 by bbecker          ###   ########.fr        #
+#    Updated: 2015/03/07 17:00:07 by bbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,23 @@ I = -I./headers
 L = -L./lib -lft
 
 TOMAKE =	$(F)main.c					\
-			$(F)get_next_line.c
+			$(F)cmd.c					\
+			$(F)builtinschecker.c		\
+			$(F)env.c					\
+			$(F)setenv.c				\
+			$(F)split.c					\
+			$(F)get_next_line.c			\
+			$(F)utilities.c
 
 
 TOLIB	=	main.o						\
-			get_next_line.o
+			cmd.o						\
+			builtinschecker.o			\
+			env.o						\
+			setenv.o					\
+			split.o						\
+			get_next_line.o				\
+			utilities.o
 
 all: $(NAME)
 
