@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/07 17:15:07 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/08 17:54:49 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,18 @@ void	ft_docmd(char **ev);
 int		ft_builtins(char **ev, char **av);
 
 /*
+**	ft_execve.c
+*/
+
+int		ft_execve(char **trueenv, char **av, char **ev);
+
+/*
 **	utilities.c
 */
 
 void	ft_checknull(void *stuff);
 char	**cloneenv(char **ev);
+int		ft_findenv(char *var, char **ev);
 
 /*
 **	split.c
@@ -59,5 +66,11 @@ int		ft_searchenv(char **ev, int i);
 */
 
 int		ft_setenv(char **ev, char *var, int param);
+
+/*
+**	errors.c
+*/
+
+void	ft_error(int err);
 
 #endif

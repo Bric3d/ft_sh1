@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/02 16:08:10 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/07 17:33:04 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/08 16:34:49 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	**ft_doenv(char **trueenv, char **av, int *n)
 	if (av[1] && ft_strcmp(av[1], "-i") == 0)
 		trueenv = NULL, j++;
 	j = ft_countlines(trueenv, av, n, j);
-	ev = (char **)ft_memalloc(sizeof(char *) * j + 1);
+	ft_checknull(ev = (char **)ft_memalloc(sizeof(char *) * j + 1));
 	ev[j] = NULL;
 	ft_envcpy(ev, trueenv, av, *n);
 	return (ev);
@@ -64,14 +64,19 @@ void		ft_env(char **trueenv, char **av)
 	char	**ev;
 	int		n;
 	int		i;
+	int		mode;
 
 	i = 0;
 	n = 0;
+	mode = 1;
 	ev = ft_doenv(trueenv, av, &n);
+	if (av[n])
+		ft_execve(trueenv, av, ev);
 	while (ev[i])
-		ft_putendl(ev[i++]);
-	i = 0;
-	while (ev[i])
+	{
+		if (mode == 1)
+			ft_putendl(ev[i]);
 		free(ev[i++]);
+	}
 	free(ev);
 }

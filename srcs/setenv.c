@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 14:37:19 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/07 17:31:23 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/08 16:35:32 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			ft_setenv(char **ev, char *var, int param)
 	i = 0;
 	if (!ev)
 	{
-		ev = (char **)ft_memalloc(sizeof(char *) * 2);
+		ft_checknull(ev = (char **)ft_memalloc(sizeof(char *) * 2));
 		ev[1] = NULL;
 	}
 	if (var && param == 1)

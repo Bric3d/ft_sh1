@@ -1,32 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/01/05 14:51:25 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/08 15:12:20 by bbecker          ###   ########.fr       */
+/*   Created: 2015/03/08 17:53:01 by bbecker           #+#    #+#             */
+/*   Updated: 2015/03/08 17:54:29 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_minishell1.h"
 
-# include <stdlib.h>
-# include <sys/uio.h>
-# include <sys/types.h>
-# include <unistd.h>
-# include "libft.h"
-# define BUFF_SIZE 8
-
-typedef struct		s_lst
+void	ft_error(int err)
 {
-	char			*buf;
-	int				fd;
-	struct s_lst	*next;
-}					t_lst;
-
-int					get_next_line(int const fd, char **line);
-
-#endif
+	if (err == 1)
+		ft_putendl_fd("Please set a PATH value using setenv", 2);
+}

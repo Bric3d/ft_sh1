@@ -6,11 +6,29 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:57:13 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/02 12:38:53 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/08 16:32:58 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
+
+int		ft_findenv(char *var, char **ev)
+{
+	int i;
+	int j;
+
+	j = 0;
+	if (ev == NULL || var == NULL)
+		return (-1);
+	i = ft_strlen(var);
+	while (ev[j])
+	{
+		if (ft_strncmp(ev[j], var, i) == 0)
+			return (j);
+		j++;
+	}
+	return (-1);
+}
 
 void	ft_checknull(void *stuff)
 {
