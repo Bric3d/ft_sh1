@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 14:37:19 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/08 16:35:32 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/08 18:30:08 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	ft_searchnreplace(char **ev, char *var, int i)
 		if (ft_strncmp(ev[j], var, i) == 0)
 		{
 			free(ev[j]);
-			ev[j] = ft_strdup(var);
+			ft_checknull(ev[j] = ft_strdup(var));
 			ret = 1;
 			break ;
 		}
@@ -32,7 +32,7 @@ static int	ft_searchnreplace(char **ev, char *var, int i)
 	}
 	if (ev[j] == NULL)
 	{
-		ev[j] = ft_strdup(var);
+		ft_checknull(ev[j] = ft_strdup(var));
 		ret = 1;
 	}
 	return (ret);
