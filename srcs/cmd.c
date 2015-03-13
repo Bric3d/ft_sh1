@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 15:21:39 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/02 16:17:26 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/10 14:45:12 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	ft_docmd(char **ev)
 	{
 		ft_putstr("$> ");
 		tab = ft_getline();
-		ft_builtins(ev, tab);
+		if (ft_builtins(ev, tab) == 0)
+			ft_execve(ev, tab, ev);
 		ft_freeline(tab);
 		tab = NULL;
 	}

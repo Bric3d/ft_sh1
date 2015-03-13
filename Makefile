@@ -6,7 +6,7 @@
 #    By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/08 15:08:34 by bbecker           #+#    #+#              #
-#    Updated: 2015/03/07 17:00:07 by bbecker          ###   ########.fr        #
+#    Updated: 2015/03/13 13:14:34 by bbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,11 @@ TOMAKE =	$(F)main.c					\
 			$(F)builtinschecker.c		\
 			$(F)env.c					\
 			$(F)setenv.c				\
+			$(F)ft_execve.c				\
+			$(F)findbin.c				\
 			$(F)split.c					\
 			$(F)get_next_line.c			\
+			$(F)errors.c				\
 			$(F)utilities.c
 
 
@@ -33,8 +36,11 @@ TOLIB	=	main.o						\
 			builtinschecker.o			\
 			env.o						\
 			setenv.o					\
+			ft_execve.o					\
+			findbin.o					\
 			split.o						\
 			get_next_line.o				\
+			errors.o					\
 			utilities.o
 
 all: $(NAME)

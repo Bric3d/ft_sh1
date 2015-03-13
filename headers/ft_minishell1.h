@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/08 17:54:49 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/09 15:42:53 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,12 @@ char	**cloneenv(char **ev);
 int		ft_findenv(char *var, char **ev);
 
 /*
+**	findbin.c
+*/
+
+char	*ft_findbin(char **ev, char **av);
+
+/*
 **	split.c
 */
 
@@ -71,6 +77,6 @@ int		ft_setenv(char **ev, char *var, int param);
 **	errors.c
 */
 
-void	ft_error(int err);
+void	ft_error(int err, char *str);
 
 #endif
