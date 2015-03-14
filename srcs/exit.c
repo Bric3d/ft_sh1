@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtinschecker.c                                  :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/03/02 15:03:36 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 13:34:32 by bbecker          ###   ########.fr       */
+/*   Created: 2015/03/14 13:28:40 by bbecker           #+#    #+#             */
+/*   Updated: 2015/03/14 13:29:09 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-int		ft_builtins(char **ev, char **av)
+void	ft_exit(char **av)
 {
-	int	ret;
+	int ret;
 
 	ret = 0;
-	if (ft_strcmp(av[0], "env") == 0)
-		ft_env(ev, av), ret = 1;
-	else if (ft_strcmp(av[0], "clear") == 0)
-		ft_putstr("\e[1;1H\e[2J"), ret = 1;
-	else if (ft_strcmp(av[0], "exit") == 0)
-		ft_exit(av), ret = 1;
-	else if (ft_strcmp(av[0], "4") == 0)
-		ft_putendl("He he he he"), ret = 1;
-	return (ret);
+	if (av[1])
+		ret = ft_atoi(av[1]);
+	ft_putstr("exit with value ");
+	ft_putnbr(ret);
+	ft_putchar('\n');
+	exit(ret);
 }

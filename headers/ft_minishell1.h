@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/09 15:42:53 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/14 17:42:04 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ void	ft_docmd(char **ev);
 */
 
 int		ft_builtins(char **ev, char **av);
+
+/*
+**	exit.c
+*/
+
+void	ft_exit(char **av);
 
 /*
 **	ft_execve.c
