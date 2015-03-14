@@ -6,23 +6,24 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/08 15:16:28 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 17:57:37 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/14 18:45:31 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-static int	ft_binaccess(char *binpath)
+static int	ft_binaccess(char **binpath)
 {
 	int x;
 
 	if (binpath)
 	{
-		x = access(binpath, X_OK);
+		x = access(*binpath, X_OK);
 		if (x == 0)
 			return (1);
-		ft_error(2, binpath);
-		free(binpath);
+		ft_error(2, *binpath);
+		free(*binpath);
+		*binpath = NULL;
 	}
 	return (-1);
 }
@@ -37,7 +38,7 @@ int			ft_execve(char **trueenv, char **av, char **ev)
 		return (0);
 	ret = 0;
 	binpath = ft_findbin(trueenv, av);
-	if (ft_binaccess(binpath) == 1)
+	if (ft_binaccess(&binpath) == 1)
 	{
 		father = fork();
 		if (father == 0)
