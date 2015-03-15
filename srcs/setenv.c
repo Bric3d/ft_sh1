@@ -6,11 +6,67 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 14:37:19 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/08 18:30:08 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/15 18:41:36 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
+
+static int	ft_place(char ***ev, char *var)
+{
+	size_t	j;
+	char	**new;
+	char	**tmp;
+	size_t	i;
+
+	i = 0;
+	tmp = *ev;
+	ft_checknull(new = ft_realloctab(tmp, 1, &j));
+	while (i < j)
+	{
+		new[i] = tmp[i];
+		i++;
+	}
+	free(tmp);
+	new[j] = ft_strdup(var);
+	new[j + 1] = NULL;
+	*ev = new;
+	return(1);
+}
+
+static int	ft_replace(int j, char **ev, char *var)
+{
+	free(ev[j]);
+	ft_checknull(ev[j] = ft_strdup(var));
+	return (1);
+}
+
+int			ft_setenv(char ***ev, char *var)
+{
+	size_t	i;
+	int		ret;
+	int		j;
+	char	*tmp;
+
+	ret = 0;
+	i = 0;
+	if (var)
+	{
+		while (var[i] && var[i] != '=')
+			i++;
+		if (var[i] == '=')
+		{
+			ft_checknull(tmp = ft_strndup(var, i + 1));
+			j = ft_findenv(tmp, *ev);
+			free(tmp);
+			if (j != -1)
+				ret = ft_replace(j, *ev, var);
+			else
+				ret = ft_place(ev, var);
+		}
+	}
+	return (ret);
+}
 
 static int	ft_searchnreplace(char **ev, char *var, int i)
 {
@@ -38,7 +94,7 @@ static int	ft_searchnreplace(char **ev, char *var, int i)
 	return (ret);
 }
 
-int			ft_setenv(char **ev, char *var, int param)
+int			ft_putenv(char **ev, char *var, int param)
 {
 	size_t	i;
 	int		ret;

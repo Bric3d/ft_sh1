@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/09 11:07:20 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 18:13:06 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/15 17:40:39 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char		*ft_findbin(char **ev, char **av)
 
 	n = ft_strlen(av[0]);
 	ret = NULL;
-	if (ft_strncmp(av[0], ".", 1) == 0)
+	if (ft_strncmp(av[0], ".", 1) == 0 || ft_strncmp(av[0], "/", 1) == 0)
 		ret = ft_findlocalbin(av, ret);
 	else
 		ret = ft_findsysbin(av, ev, ret, n);

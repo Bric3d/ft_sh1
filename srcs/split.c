@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 17:18:43 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/02 15:44:49 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/15 16:56:24 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static size_t	ft_word_nb(char const *s)
 	numb = 0;
 	while (s[b])
 	{
-		if (s[b] != ' ' && a == 0)
+		if (s[b] != ' ' && s[b] != '	' && a == 0)
 		{
 			a = 1;
 			numb++;
 		}
-		if (s[b] == ' ' && a == 1)
+		if ((s[b] == ' ' || s[b] == '	') && a == 1)
 			a = 0;
 		b++;
 	}
@@ -46,12 +46,12 @@ static void		ft_placestr(char **tab, char const *s)
 	a = 0;
 	while (s[b])
 	{
-		if (s[b] != ' ' && a == 0)
+		if (s[b] != ' ' && s[b] != '	' && a == 0)
 		{
 			start = b;
 			a = 1;
 		}
-		if (s[b] == ' ' && a == 1)
+		if ((s[b] == ' ' || s[b] == '	') && a == 1)
 		{
 			ft_checknull(*tab = ft_strsub(s, start, b - start));
 			++tab;

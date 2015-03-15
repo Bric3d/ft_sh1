@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 17:42:04 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/15 17:41:58 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@
 **	cmd.c
 */
 
-void	ft_docmd(char **ev);
+void	ft_docmd(char ***ev);
 
 /*
 **	builtinschecker.c
 */
 
-int		ft_builtins(char **ev, char **av);
+int		ft_builtins(char ***ev, char **av);
 
 /*
 **	exit.c
@@ -77,7 +77,14 @@ int		ft_searchenv(char **ev, int i);
 **	setenv.c
 */
 
-int		ft_setenv(char **ev, char *var, int param);
+int		ft_putenv(char **ev, char *var, int param);
+int		ft_setenv(char ***ev, char *var);
+
+/*
+**	realloctab.c
+*/
+
+char	**ft_realloctab(char **tab, int what, size_t *i);
 
 /*
 **	errors.c
