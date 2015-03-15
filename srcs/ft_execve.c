@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/08 15:16:28 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 18:45:31 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/15 14:11:35 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,13 @@ static int	ft_binaccess(char **binpath)
 {
 	int x;
 
-	if (binpath)
+	if (*binpath)
 	{
 		x = access(*binpath, X_OK);
 		if (x == 0)
-			return (1);
+			return (0);
 		ft_error(2, *binpath);
+		return (-2);
 		free(*binpath);
 		*binpath = NULL;
 	}
@@ -38,7 +39,7 @@ int			ft_execve(char **trueenv, char **av, char **ev)
 		return (0);
 	ret = 0;
 	binpath = ft_findbin(trueenv, av);
-	if (ft_binaccess(&binpath) == 1)
+	if ((ret = ft_binaccess(&binpath)) == 0)
 	{
 		father = fork();
 		if (father == 0)
@@ -50,7 +51,7 @@ int			ft_execve(char **trueenv, char **av, char **ev)
 			wait(NULL);
 		ret = 1;
 	}
-	else
+	else if (ret == -1)
 		ft_error(3, av[0]);
 	if (binpath != NULL)
 		free(binpath);
