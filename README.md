@@ -3,4 +3,4 @@ Minishell
 
 Basic unix command iterpretter made for school. Support some builtins, listed bellow.
 
-Bultins : cd , setenv, unsetenv, env, exit
+Builtins : cd , setenv, unsetenv, clear, env, exit
