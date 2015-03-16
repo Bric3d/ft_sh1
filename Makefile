@@ -6,7 +6,7 @@
 #    By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/08 15:08:34 by bbecker           #+#    #+#              #
-#    Updated: 2015/03/16 11:15:17 by bbecker          ###   ########.fr        #
+#    Updated: 2015/03/16 17:44:27 by bbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ TOMAKE =	$(F)main.c					\
 			$(F)get_next_line.c			\
 			$(F)errors.c				\
 			$(F)utilities.c				\
-			$(F)realloctab.c
+			$(F)realloctab.c			\
+			$(F)cd.c
 
 
 TOLIB	=	main.o						\
@@ -47,7 +48,8 @@ TOLIB	=	main.o						\
 			get_next_line.o				\
 			errors.o					\
 			utilities.o					\
-			realloctab.o
+			realloctab.o				\
+			cd.o
 
 all: $(NAME)
 

@@ -6,13 +6,13 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/01/04 15:01:50 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 15:31:00 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:24:05 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_minishell1.h"
 
-int 		main(int ac, char **av, char **ev)
+int	main(int ac, char **av, char **ev)
 {
 	(void)ac;
 	(void)av;

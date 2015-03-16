@@ -6,12 +6,12 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 10:56:35 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:28:42 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_MINISHELL1
-# define FT_MINISHELL1
+#ifndef FT_MINISHELL1_H
+# define FT_MINISHELL1_H
 
 # include "libft.h"
 # include "get_next_line.h"
@@ -87,6 +87,12 @@ int		ft_setenv(char ***ev, char *var);
 int		ft_unsetenv(char ***ev, char **av);
 
 /*
+**	cd.c
+*/
+
+void	ft_cd(char **av, char ***ev);
+
+/*
 **	realloctab.c
 */
 
@@ -97,5 +103,6 @@ char	**ft_realloctab(char **tab, int what, size_t *i);
 */
 
 void	ft_error(int err, char *str);
+void	cderror(char **av, int error);
 
 #endif

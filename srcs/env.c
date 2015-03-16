@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/02 16:08:10 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/15 15:57:25 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 18:59:36 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	ft_envcpy(char **ev, char **trueenv, char **av, int n)
 		i = 2;
 	else
 		i = 1;
-	if (av && av [1] && av[i])
+	if (av && av[1] && av[i])
 		while (av[i] && i < n)
 			ft_putenv(ev, av[i++], 1);
 }

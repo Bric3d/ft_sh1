@@ -6,13 +6,13 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 11:28:16 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/07 12:46:06 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:23:32 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	*ft_join(char *s1, char *s2)
+static char		*ft_join(char *s1, char *s2)
 {
 	size_t	b;
 	size_t	c;
@@ -41,8 +41,7 @@ static char	*ft_join(char *s1, char *s2)
 	return (data);
 }
 
-
-t_lst *get_buff_fd(int fd, t_lst *list)
+static t_lst	*get_buff_fd(int fd, t_lst *list)
 {
 	while (list)
 	{
@@ -56,11 +55,12 @@ t_lst *get_buff_fd(int fd, t_lst *list)
 		return (NULL);
 	list->fd = fd;
 	return (list);
-
 }
-static int	ft_gnl_cut(int fd, char **line, char **buf, char *pos)
+
+static int		ft_gnl_cut(int fd, char **line, char **buf, char *pos)
 {
 	int	ret;
+
 	*line = ft_strdup(*buf);
 	while (!pos)
 	{
@@ -85,12 +85,13 @@ static int	ft_gnl_cut(int fd, char **line, char **buf, char *pos)
 	return (*line ? 1 : -1);
 }
 
-int	get_next_line(int const fd, char **line)
+int				get_next_line(int const fd, char **line)
 {
-	static t_lst *begin_list;
-	t_lst *list;
-	char	*pos;
-	int	ret;
+	static t_lst	*begin_list;
+	t_lst			*list;
+	char			*pos;
+	int				ret;
+
 	if (!begin_list)
 		if ((begin_list = get_buff_fd(fd, begin_list)) == NULL)
 			return (-1);

@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 15:21:39 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 15:48:41 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:20:42 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,21 @@ static char	**ft_getline(int *ret)
 	return (tab);
 }
 
+static void	ft_putprompt(char **ev)
+{
+	(void)ev;
+	ft_putstr("$> ");
+}
+
 void		ft_docmd(char ***ev)
 {
 	char	**tab;
 	int		ret;
 
-	(void)ev;
-	
 	while (42)
 	{
 		ret = 0;
-		ft_putstr("$> ");
+		ft_putprompt(*ev);
 		tab = ft_getline(&ret);
 		if (ret == 0)
 		{

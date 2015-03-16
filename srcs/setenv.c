@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 14:37:19 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 11:25:17 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:27:05 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	ft_place(char ***ev, char *var)
 	new[j] = ft_strdup(var);
 	new[j + 1] = NULL;
 	*ev = new;
-	return(1);
+	return (1);
 }
 
 static int	ft_replace(int j, char **ev, char *var)

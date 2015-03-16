@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/09 11:07:20 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 11:25:14 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 18:58:33 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ static char	*ft_binstat(char *binpath)
 {
 	struct stat	stat;
 
-	if (lstat(binpath, &stat) == 0 && (S_ISREG(stat.st_mode) || S_ISLNK(stat.st_mode)))
+	if (lstat(binpath, &stat) == 0 && (S_ISREG(stat.st_mode)
+		|| S_ISLNK(stat.st_mode)))
 		return (binpath);
 	else
 	{
@@ -51,12 +52,12 @@ static char	*ft_findsysbin(char **av, char **ev, char *ret, int n)
 {
 	char	*tmp;
 	int		j;
-	int		i; 
+	int		i;
 
 	if ((i = ft_findenv("PATH", ev, 4)) == -1)
 	{
 		ft_error(1, NULL);
-		return(ret);
+		return (ret);
 	}
 	tmp = &ev[i][5];
 	while (ret == NULL)
@@ -86,13 +87,11 @@ char		*ft_findbin(char **ev, char **av)
 	int		n;
 	char	*ret;
 
-
 	n = ft_strlen(av[0]);
 	ret = NULL;
 	if (ft_strncmp(av[0], ".", 1) == 0 || ft_strncmp(av[0], "/", 1) == 0)
 		ret = ft_findlocalbin(av, ret);
 	else
 		ret = ft_findsysbin(av, ev, ret, n);
-
 	return (ret);
 }

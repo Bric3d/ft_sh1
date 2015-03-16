@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 17:18:43 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/15 16:56:24 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 19:27:35 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void		ft_placestr(char **tab, char const *s)
 		ft_checknull(*tab = ft_strsub(s, start, b - start));
 }
 
-char		**ft_split(char const *s)
+char			**ft_split(char const *s)
 {
 	char	**tab;
 	size_t	nb;
