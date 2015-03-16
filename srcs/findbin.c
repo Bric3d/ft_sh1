@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/09 11:07:20 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/15 17:40:39 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 11:25:14 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char	*ft_findsysbin(char **av, char **ev, char *ret, int n)
 	int		j;
 	int		i; 
 
-	if ((i = ft_findenv("PATH=", ev)) == -1)
+	if ((i = ft_findenv("PATH", ev, 4)) == -1)
 	{
 		ft_error(1, NULL);
 		return(ret);

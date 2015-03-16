@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/07 14:37:19 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/15 18:41:36 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 11:25:17 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int			ft_setenv(char ***ev, char *var)
 	size_t	i;
 	int		ret;
 	int		j;
-	char	*tmp;
 
 	ret = 0;
 	i = 0;
@@ -56,9 +55,7 @@ int			ft_setenv(char ***ev, char *var)
 			i++;
 		if (var[i] == '=')
 		{
-			ft_checknull(tmp = ft_strndup(var, i + 1));
-			j = ft_findenv(tmp, *ev);
-			free(tmp);
+			j = ft_findenv(var, *ev, i);
 			if (j != -1)
 				ret = ft_replace(j, *ev, var);
 			else

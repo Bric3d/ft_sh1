@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/14 13:28:40 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/14 13:29:09 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 13:38:13 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_exit(char **av)
 	int ret;
 
 	ret = 0;
-	if (av[1])
+	if (av && av[1])
 		ret = ft_atoi(av[1]);
 	ft_putstr("exit with value ");
 	ft_putnbr(ret);

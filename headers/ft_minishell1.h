@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/15 17:41:58 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/16 10:56:35 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		ft_execve(char **trueenv, char **av, char **ev);
 
 void	ft_checknull(void *stuff);
 char	**cloneenv(char **ev);
-int		ft_findenv(char *var, char **ev);
+int		ft_findenv(char *var, char **ev, int i);
 
 /*
 **	findbin.c
@@ -79,6 +79,12 @@ int		ft_searchenv(char **ev, int i);
 
 int		ft_putenv(char **ev, char *var, int param);
 int		ft_setenv(char ***ev, char *var);
+
+/*
+**	unsetenv.c
+*/
+
+int		ft_unsetenv(char ***ev, char **av);
 
 /*
 **	realloctab.c
