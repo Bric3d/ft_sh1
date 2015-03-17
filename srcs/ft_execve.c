@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/08 15:16:28 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 19:21:54 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/17 16:44:23 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int			ft_execve(char **trueenv, char **av, char **ev)
 		father = fork();
 		if (father == 0)
 		{
+			signal(SIGINT, SIG_DFL);
 			ret = execve(binpath, av, ev);
 			exit(ret);
 		}
 		else
-			wait(NULL);
-		ret = 1;
+			wait(NULL), ret = 1;
 	}
 	else if (ret == -1)
 		ft_error(3, av[0]);

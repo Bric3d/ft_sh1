@@ -6,11 +6,11 @@
 #    By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/12/08 15:08:34 by bbecker           #+#    #+#              #
-#    Updated: 2015/03/16 17:44:27 by bbecker          ###   ########.fr        #
+#    Updated: 2015/03/17 11:37:15 by bbecker          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = sh1
+NAME = ft_minishell1
 
 F = ./srcs/
 
@@ -55,6 +55,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C ./lib/libft
+	cp ../libft.a ./lib/
 	gcc -c -Wall -Werror -Wextra $(TOMAKE) $(I) $(L)
 	gcc -Wall -Werror -Wextra $(I) $(L) -o $(NAME) $(TOLIB)
 

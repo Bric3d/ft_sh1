@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/01 14:39:27 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 19:28:42 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/17 16:43:12 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 */
 
 void	ft_docmd(char ***ev);
+void	ft_signal_handler(int sig);
 
 /*
 **	builtinschecker.c

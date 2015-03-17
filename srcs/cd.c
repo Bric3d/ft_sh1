@@ -6,7 +6,7 @@
 /*   By: bbecker <bbecker@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/03/16 10:45:49 by bbecker           #+#    #+#             */
-/*   Updated: 2015/03/16 18:57:08 by bbecker          ###   ########.fr       */
+/*   Updated: 2015/03/17 11:40:14 by bbecker          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,6 @@ static int	ft_chdir(char *path)
 	return (ret);
 }
 
-static void	cd2args(char **av, char ***ev)
-{
-	(void)av;
-	(void)ev;
-}
-
 static void	cd1arg(char *path, char ***ev)
 {
 	static char current[1024];
@@ -83,6 +77,13 @@ static void	cd1arg(char *path, char ***ev)
 	ft_bzero(current, 1024), getcwd(current, 1024);
 	if (ret == 0)
 		ft_rewrite_path(ev, current);
+}
+
+static void	cd2args(char **av, char ***ev)
+{
+	(void)av;
+	(void)ev;
+	cd1arg(av[1], ev);
 }
 
 void		ft_cd(char **av, char ***ev)
